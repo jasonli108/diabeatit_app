@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Heart, Activity, Scale, Utensils } from 'lucide-react';
+import { Shield, Heart, Activity, Scale, Utensils, Flame } from 'lucide-react';
 
 // Helper to get readable mode name
 const getModeName = (type) => {
@@ -58,7 +58,7 @@ const Dashboard = ({ healthMetrics, profile, mealPlan, onStartOver }) => {
       </div>
 
       {/* Metrics Row */}
-      <div className="grid grid-cols-3 gap-4 mb-8 px-2">
+      <div className="grid grid-cols-4 gap-4 mb-8 px-2">
         {/* BMI */}
         <div className="flex flex-col">
           <div className="flex items-center gap-2 mb-2 text-[#A19D7E]">
@@ -67,6 +67,18 @@ const Dashboard = ({ healthMetrics, profile, mealPlan, onStartOver }) => {
           </div>
           <p className="text-3xl font-bold text-[#C084FC] mb-1">{bmi}</p>
           <p className="text-[#A19D7E] text-[10px]">Body Mass Index</p>
+        </div>
+
+        {/* Calories */}
+        <div className="flex flex-col border-l border-[#3B3D21] pl-4">
+          <div className="flex items-center gap-2 mb-2 text-[#A19D7E]">
+            <Flame size={16} />
+            <span className="text-xs font-bold uppercase tracking-wider">Calories</span>
+          </div>
+          <p className="text-3xl font-bold text-[#C084FC] mb-1">
+            {safeMetrics.daily_calories || '--'}
+          </p>
+          <p className="text-[#A19D7E] text-[10px]">Daily Target</p>
         </div>
 
         {/* Activity */}
