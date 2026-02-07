@@ -167,7 +167,10 @@ class ConversationAgent:
             return {"type": "text", "message": response.text}
 
         except Exception as e:
-            return {"type": "error", "message": f"Sorry, something went wrong: {str(e)}"}
+            msg = str(e)
+            if "429" in msg or "ResourceExhausted" in msg or "Quota" in msg or "quota" in msg.lower():
+                 return {"type": "error", "message": "⚠️ AI Service Usage Limit Reached. Please try again later."}
+            return {"type": "error", "message": f"Sorry, something went wrong: {msg}"}
 
     async def _handle_function_call(self, function_call) -> Dict[str, Any]:
         """

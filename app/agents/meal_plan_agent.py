@@ -132,7 +132,10 @@ class MealPlanAgent:
         except json.JSONDecodeError as e:
             return self._create_error_response(f"Failed to parse response: {e}")
         except Exception as e:
-            print(e)
+            print(f"MealPlanAgent Error: {e}")
+            msg = str(e)
+            if "429" in msg or "ResourceExhausted" in msg or "Quota" in msg or "quota" in msg.lower():
+                return self._create_error_response("⚠️ AI Service Usage Limit Reached. Please try again later.")
             return self._create_error_response(f"Failed to generate meal plan: {e}")
 
     async def adapt_recipe(
@@ -189,6 +192,9 @@ class MealPlanAgent:
             response = await self.model.generate_content_async(prompt)
             return json.loads(response.text)
         except Exception as e:
+            msg = str(e)
+            if "429" in msg or "ResourceExhausted" in msg or "Quota" in msg or "quota" in msg.lower():
+                return {"error": "⚠️ AI Service Usage Limit Reached. Please try again later."}
             return {"error": str(e)}
 
     async def generate_weekly_plan(
@@ -248,6 +254,9 @@ class MealPlanAgent:
             response = await self.model.generate_content_async(prompt)
             return json.loads(response.text)
         except Exception as e:
+            msg = str(e)
+            if "429" in msg or "ResourceExhausted" in msg or "Quota" in msg or "quota" in msg.lower():
+                return {"error": "⚠️ AI Service Usage Limit Reached. Please try again later."}
             return {"error": str(e)}
 
     def _validate_meal_plan(self, plan: Dict, metrics: HealthMetrics) -> None:

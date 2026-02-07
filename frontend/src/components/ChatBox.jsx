@@ -77,11 +77,12 @@ function ChatBox({ userId, onMealPlanUpdate, onSetupClick }) {
         onMealPlanUpdate?.(response.meal_plan);
       }
     } catch (error) {
+      const errorMessage = error.response?.data?.detail || error.message || 'Sorry, something went wrong. Please try again later.';
       setMessages((prev) => [
         ...prev,
         {
           role: 'assistant',
-          content: 'Sorry, something went wrong. Please try again later.',
+          content: errorMessage,
           isError: true,
         },
       ]);

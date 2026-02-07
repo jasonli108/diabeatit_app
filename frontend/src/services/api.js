@@ -32,7 +32,34 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error('❌ API Error:', error.response?.data || error.message);
+    let errorMessage = error.response?.data?.detail || error.message;
+
+    // Check for rate limit / quota errors
+    const isQuotaError = 
+      error.response?.status === 429 || 
+      (typeof errorMessage === 'string' && (
+        errorMessage.toLowerCase().includes('quota') || 
+        errorMessage.toLowerCase().includes('limit') ||
+        errorMessage.toLowerCase().includes('resource exhausted')
+      ));
+
+    if (isQuotaError) {
+      errorMessage = "⚠️ AI Service Usage Limit Reached. Please try again later.";
+    }
+
+    console.error('❌ API Error:', errorMessage);
+
+    // Propagate the specific error message
+    if (error.response) {
+      if (!error.response.data) error.response.data = {};
+      // Ensure detail is set if it's an object, or replace data if it's not (though usually it is)
+      if (typeof error.response.data === 'object') {
+        error.response.data.detail = errorMessage;
+      }
+    } else {
+      error.message = errorMessage;
+    }
+
     return Promise.reject(error);
   }
 );
