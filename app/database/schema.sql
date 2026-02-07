@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS user_health_profiles (
     user_id VARCHAR(36) NOT NULL,
     height_cm DECIMAL(5,2) NOT NULL,
     weight_kg DECIMAL(5,2) NOT NULL,
-    age INT NOT NULL,
-    gender VARCHAR(10) NOT NULL, -- male, female
     activity_level INT NOT NULL CHECK (activity_level BETWEEN 1 AND 4),
     exercise_freq_per_week INT DEFAULT 0,
     diabetic_type VARCHAR(20) NOT NULL, -- type1, type2, prediabetic, gestational

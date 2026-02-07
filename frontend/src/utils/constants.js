@@ -18,12 +18,6 @@ export const DIABETIC_TYPES = [
   { value: 'gestational', label: 'Gestational Diabetes' },
 ];
 
-// Gender options
-export const GENDERS = [
-  { value: 'male', label: 'Male' },
-  { value: 'female', label: 'Female' },
-];
-
 // Meal types
 export const MEAL_TYPES = [
   { key: 'breakfast', label: 'Breakfast', icon: '🌅' },
@@ -54,8 +48,6 @@ export const SUGGESTED_MESSAGES = [
 export const DEFAULT_PROFILE = {
   height_cm: 170,
   weight_kg: 70,
-  age: 40,
-  gender: 'male',
   activity_level: 2,
   exercise_freq_per_week: 2,
   diabetic_type: 'type2',

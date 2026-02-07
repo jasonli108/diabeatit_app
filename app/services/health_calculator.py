@@ -15,19 +15,14 @@ class HealthCalculator:
     """
     
     @staticmethod
-    def calculate_bmr(weight_kg: float, height_cm: float, age: int, gender: str) -> float:
+    def calculate_bmr(weight_kg: float, height_cm: float) -> float:
         """
-        Calculate Basal Metabolic Rate using Mifflin-St Jeor equation.
+        Calculate Basal Metabolic Rate using simplified Mifflin-St Jeor equation.
+        Without age and gender, we use an approximation.
         
-        Male: BMR = 10×weight(kg) + 6.25×height(cm) - 5×age(y) + 5
-        Female: BMR = 10×weight(kg) + 6.25×height(cm) - 5×age(y) - 161
+        Formula: BMR = 10×weight(kg) + 6.25×height(cm) - 250
         """
-        base = 10 * weight_kg + 6.25 * height_cm - 5 * age
-        
-        if gender == "male":
-            return base + 5
-        else:
-            return base - 161
+        return 10 * weight_kg + 6.25 * height_cm - 250
     
     @staticmethod
     def calculate_tdee(bmr: float, activity_level: int, exercise_freq: int = 0) -> float:
@@ -67,9 +62,7 @@ class HealthCalculator:
         # Calculate BMR
         bmr = cls.calculate_bmr(
             weight_kg=profile.weight_kg,
-            height_cm=profile.height_cm,
-            age=profile.age,
-            gender=profile.gender.value
+            height_cm=profile.height_cm
         )
         
         # Calculate TDEE

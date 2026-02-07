@@ -7,11 +7,6 @@ from typing import List, Optional
 from enum import Enum
 
 
-class Gender(str, Enum):
-    MALE = "male"
-    FEMALE = "female"
-
-
 class DiabeticType(str, Enum):
     TYPE1 = "type1"
     TYPE2 = "type2"
@@ -32,8 +27,6 @@ class UserProfileRequest(BaseModel):
     user_id: Optional[str] = None
     height_cm: float = Field(..., gt=0, le=300, description="Height in centimeters")
     weight_kg: float = Field(..., gt=0, le=500, description="Weight in kilograms")
-    age: int = Field(..., gt=0, le=150, description="Age in years")
-    gender: Gender
     activity_level: ActivityLevel = Field(..., description="1=Sedentary, 2=Light, 3=Moderate, 4=Active")
     exercise_freq_per_week: int = Field(default=0, ge=0, le=7, description="Exercise sessions per week")
     diabetic_type: DiabeticType
@@ -43,8 +36,6 @@ class UserProfileRequest(BaseModel):
             "example": {
                 "height_cm": 170,
                 "weight_kg": 75,
-                "age": 45,
-                "gender": "male",
                 "activity_level": 2,
                 "exercise_freq_per_week": 3,
                 "diabetic_type": "type2"
@@ -58,8 +49,6 @@ class UserProfile(BaseModel):
     user_id: str
     height_cm: float
     weight_kg: float
-    age: int
-    gender: Gender
     activity_level: ActivityLevel
     exercise_freq_per_week: int
     diabetic_type: DiabeticType

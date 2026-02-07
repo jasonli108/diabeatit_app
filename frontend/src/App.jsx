@@ -81,11 +81,18 @@ function App() {
       setUserId(response.user_id);
       setHealthMetrics(response.health_metrics);
       
-      // Automatically generate initial meal plan
-      const mealResponse = await mealPlanApi.generateDaily(response.user_id);
-      setMealPlan(mealResponse.meal_plan);
-      
+      // Move to Dashboard immediately so user sees progress
       setCurrentStep(STEPS.DASHBOARD);
+      
+      // Automatically generate initial meal plan in background
+      mealPlanApi.generateDaily(response.user_id)
+        .then(mealResponse => {
+           setMealPlan(mealResponse.meal_plan);
+        })
+        .catch(err => {
+           console.error('Background meal plan generation failed:', err);
+        });
+
     } catch (err) {
       setError(err.response?.data?.detail || 'Registration failed, please try again later');
       console.error('Registration error:', err);
