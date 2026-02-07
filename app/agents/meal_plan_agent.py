@@ -26,7 +26,7 @@ class MealPlanAgent:
 
         # Configure model for JSON output
         self.model = genai.GenerativeModel(
-            "gemini-2.5-flash", generation_config={"response_mime_type": "application/json"}
+            "gemini-3-flash-preview", generation_config={"response_mime_type": "application/json"}
         )
 
     async def generate_daily_plan(
@@ -266,4 +266,3 @@ class MealPlanAgent:
     def _create_error_response(self, error_message: str) -> Dict[str, Any]:
         """Create a standardized error response."""
         return {"error": True, "message": error_message, "meal_plan": None}
-
