@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply bg-gradient-to-br from-green-50 to-blue-50 min-h-screen;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply w-full bg-green-600 text-white py-3 rounded-xl font-semibold 
+           hover:bg-green-700 transition-colors duration-200 
+           disabled:bg-gray-400 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply w-full bg-white text-green-600 py-3 rounded-xl font-semibold 
+           border-2 border-green-600 hover:bg-green-50 transition-colors duration-200;
+  }
+
+  .input-field {
+    @apply w-full border border-gray-300 rounded-lg p-3 mt-1 
+           focus:ring-2 focus:ring-green-500 focus:border-transparent 
+           outline-none transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl shadow-lg p-6;
+  }
+
+  .metric-card {
+    @apply p-4 rounded-xl text-center;
+  }
+
+  .chat-bubble-user {
+    @apply bg-green-100 ml-8 p-3 rounded-2xl rounded-tr-sm;
+  }
+
+  .chat-bubble-assistant {
+    @apply bg-gray-100 mr-8 p-3 rounded-2xl rounded-tl-sm;
+  }
+}
+
+/* Animations */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400;
+}
