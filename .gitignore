@@ -58,3 +58,5 @@ Thumbs.db
 *.bak
 tmp/
 temp/
+backend_release.sh
+frontend_release.sh

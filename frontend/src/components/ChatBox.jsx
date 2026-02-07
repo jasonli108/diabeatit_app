@@ -8,7 +8,7 @@ import { Send, RotateCcw, Sparkles } from 'lucide-react';
 import { chatApi } from '../services/api';
 import { SUGGESTED_MESSAGES } from '../utils/constants';
 
-function ChatBox({ userId, onMealPlanUpdate }) {
+function ChatBox({ userId, onMealPlanUpdate, onSetupClick }) {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,6 +20,25 @@ function ChatBox({ userId, onMealPlanUpdate }) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+
+  // Handle missing userId (Guest mode)
+  if (!userId) {
+    return (
+      <div className="card h-full flex flex-col justify-center items-center text-center p-6">
+        <Sparkles className="w-12 h-12 text-gray-300 mb-4" />
+        <h3 className="text-gray-600 font-semibold mb-2">Assistant Unavailable</h3>
+        <p className="text-gray-500 text-sm mb-6">
+          Please complete your profile setup to start chatting with your personal AI diet assistant.
+        </p>
+        <button 
+          onClick={onSetupClick}
+          className="bg-green-600 text-white px-6 py-2 rounded-xl font-medium hover:bg-green-700 transition-colors shadow-sm"
+        >
+          Get Started
+        </button>
+      </div>
+    );
+  }
 
   /**
    * Send message to AI
